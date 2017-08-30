@@ -15,3 +15,16 @@ C:\Users\Administrator\Desktop\ffmpeg\ffmpeg-20170820-8754ccd-win64-shared\bin
 //获取文件信息  >C:\\Users\\Administrator\\Desktop\\tmp.txt
 ffprobe.exe -v quiet -print_format json -show_format -show_streams C:\Users\Administrator\Desktop\test.avi
 ffmpeg -i C:\Users\Administrator\Desktop\test.avi C:\Users\Administrator\Desktop\123.mp3
+
+//添加字幕
+第一种：外挂字幕(软字幕)，视频文件和字幕文件分离；当播放视频文件时，自动载入相同文件夹下同名的字幕文件。
+第二种：将字幕封装到容器中，就是所谓的字幕流，和视频流/音频流同等地位。
+ffmpeg -i input.mkv -i subtitles.srt -c copy output.mkv
+从容器中提取字幕流，生成字幕文件
+ffmpeg -i input.mkv output.srt
+第三种：内嵌字幕(硬字幕) 利用video filter将字幕文件烧进视频流中，就像水印一样。
+利用subtirles filter 为视频添加字幕（将字幕合成到视频流中，输出文件中不含字幕流）
+ffmpeg -i input.mkv -vf subtitles=subtitles.srt output.mkv
+将输入文件的第一个字幕流合成到视频流中：ffmpeg -i input.mkv -vf subtitles=input.mkv output.mkv
+将某容器第二个字幕流合成到另一个容器的视频流中输出：ffmpeg -i input.mkv -vf subtitles=video.mkv:si=1 output.mkv
+//截图
