@@ -1,0 +1,63 @@
+C:\Users\yangkai\Desktop\ffmpeg824\ffmpeg\ffmpeg-20170820-8754ccd-win64-shared\bin
+//音频转换   -b:a 320k
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\一休.mp3  -acodec copy C:\\Users\\yangkai\\Desktop\\一休.wav
+
+
+
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\一休.mp3
+
+
+
+
+
+
+
+
+
+C:\Users\yangkai\Desktop\ffmpeg824\ffmpeg\ffmpeg-20170820-8754ccd-win64-shared\bin
+
+//视频转换，仅格式转换                             //-acodec copy -vcodec copy
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\test.mp4 C:\\Users\\yangkai\\Desktop\\123.mov
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\test.mp4 C:\\Users\\yangkai\\Desktop\\123.wmv
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\test.mp4 -acodec copy -vcodec wmv2  C:\\Users\\yangkai\\Desktop\\123.wmv 
+
+//视频转换，仅设置分辨率scale=480:270
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\test.mp4 -acodec copy -vf scale=968:544 -f MP4  C:\\Users\\yangkai\\Desktop\\123.mp4 
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\test.mp4 -vf scale=480:270 C:\\Users\\yangkai\\Desktop\\123.wmv 
+
+
+//视频转换，仅设置比特率  
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\test.mp4  -b:v 2000k -bufsize 2000k -maxrate 2500k C:\\Users\\yangkai\\Desktop\\123.wmv
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\test.mp4 -acodec copy -vcodec copy -b:v 2000k -bufsize 2000k -maxrate 2500k -f AVI C:\\Users\\yangkai\\Desktop\\123.avi
+
+//视频转换 比特率+分辨率
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\test.mp4 -b:v 2000k -bufsize 2000k -maxrate 2500k -vf scale=480:270 C:\\Users\\yangkai\\Desktop\\123.wmv 
+
+//视频片段截取
+ffmpeg -ss 00:00:05 -t 00:00:05  -i C:\\Users\\yangkai\\Desktop\\test.mp4 -acodec copy -vcodec copy C:\\Users\\yangkai\\Desktop\\123.mp4 
+
+//添加水印,logo  高度48px合适，加上比特率
+ffmpeg -i C:\\Users\\yangkai\\Desktop\\test.mp4  -i C:\\Users\\yangkai\\Desktop\\logo.png -filter_complex overlay -b:v 2500k  C:\\Users\\yangkai\\Desktop\\123.mp4 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//获取文件信息json格式
+ffprobe -v quiet -print_format json -show_format -show_streams C:\\Users\\yangkai\\Desktop\\test.mp4
+
+ffprobe >C:\\tmp.txt -v quiet -print_format json -show_format -show_streams C:\\Users\\yangkai\\Desktop\\一休.mp3
+
+
+
+
+
+
