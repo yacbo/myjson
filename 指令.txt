@@ -14,6 +14,4 @@ C:\Users\Administrator\Desktop\ffmpeg\ffmpeg-20170820-8754ccd-win64-shared\bin
 
 //获取文件信息  >C:\\Users\\Administrator\\Desktop\\tmp.txt
 ffprobe.exe -v quiet -print_format json -show_format -show_streams C:\Users\Administrator\Desktop\test.avi
-
-
 ffmpeg -i C:\Users\Administrator\Desktop\test.avi C:\Users\Administrator\Desktop\123.mp3
