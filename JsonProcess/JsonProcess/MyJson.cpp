@@ -15,6 +15,7 @@ void trim(string &s)
 		}
 	}
 }
+/*读取txt文件到字符串中*/
 string GetTxt(const string fileName)
 {
 	string str1 = "";   //将文本内容读取到字符串中
@@ -40,7 +41,6 @@ string GetTxt(const string fileName)
 
 int main()
 {
-	remove("C:\\Users\\Administrator\\Desktop\\tmp1.txt");//删除文件
 	Json::Reader reader;
 	Json::Value root;
 	string strTxt = GetTxt("C:\\Users\\Administrator\\Desktop\\tmp.txt");  //把txt文本读取到字符串
@@ -54,5 +54,6 @@ int main()
 			string bit_rate = root["format"]["bit_rate"].asString();   //文件比特率 128000
 		}
 	}
+	remove("C:\\Users\\Administrator\\Desktop\\tmp1.txt");//删除文件
 	return 0;
 }
