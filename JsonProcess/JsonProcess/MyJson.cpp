@@ -2,7 +2,10 @@
 #include "json.h"
 #include <Windows.h>
 #include <fstream>
+#include "shellapi.h"
+#include <stdlib.h>
 using namespace std;
+
 /*字符串去空格*/
 void trim(string &s)
 {
@@ -41,19 +44,57 @@ string GetTxt(const string fileName)
 
 int main()
 {
-	Json::Reader reader;
-	Json::Value root;
-	string strTxt = GetTxt("C:\\Users\\Administrator\\Desktop\\tmp.txt");  //把txt文本读取到字符串
-	if (strTxt != "")  //文件读取成功
+	/*char buf[256];
+	ifstream ifs("C:\\Users\\yangk\\Desktop\\IsBat.bat");
+	while (!ifs.eof())
 	{
-		if (reader.parse(strTxt, root))
+		ifs.getline(buf,256,'\n');
+		cout << buf << endl;
+	}
+	ifs.close();
+	system("pause");
+	return 0;*/
+
+	//写bat文件,bat文件放到C:\\Users\\IsBat12.bat,执行bat生成的文件信息txt文件的路径。
+	ofstream ofs;
+	ofs.open("C:\\Users\\yangk\\Desktop\\IsBat12.bat", ios::trunc);
+	string targetFile = "C:\\Users\\yangk\\Desktop\\test.avi ";
+	string str = "C:\\Users\\yangk\\Desktop\\ffmpeg0901\\ffmpeg\\ffmpeg-20170820-8754ccd-win64-shared\\bin\\ffprobe.exe  >E:\\tmp.txt -v quiet -print_format json -show_format -show_streams " + targetFile;
+	if (ofs)
+	{
+		for (int i = 0; i <= str.length() - 1; i++)
 		{
-			string format_name = root["format"]["format_name"].asString();  //文件类型 mp3
-			string duration = root["format"]["duration"].asString();  //文件长度 186s
-			string size = root["format"]["size"].asString();   //文件大小 2919028byte
-			string bit_rate = root["format"]["bit_rate"].asString();   //文件比特率 128000
+			ofs << str[i];
 		}
 	}
-	remove("C:\\Users\\Administrator\\Desktop\\tmp1.txt");//删除文件
+	ofs.close();
+	//执行.bat文件，传入文件路径即可;生成文件信息的txt文件。
+	HINSTANCE hd = ShellExecuteA(NULL, "open", "C:\\Users\\yangk\\Desktop\\IsBat12.bat", NULL, NULL, SW_SHOW);
+	long hdInt = (long)hd;
+	cout << hdInt << endl;
+	system("pause");
 	return 0;
+
+	//ShellExecuteA(NULL, "open", "c://WINDOWS//system32//cmd.exe", "/c md c://zzz", "", SW_SHOW);
+	//string command = " -v quiet -print_format json -show_format -show_streams C:\\Users\\yangk\\Desktop\\test.avi >E:\\tmp.txt";
+	//ShellExecuteA(NULL, "open", "ffprobe.exe", command.c_str(), NULL, SW_SHOW);
+	//WinExec("ffprobe.exe -v quiet -print_format json -show_format -show_streams C:\\Users\\yangk\\Desktop\\test.avi >E:\\tmp.txt", SW_SHOW);
+	//system("ffprobe.exe -v quiet -print_format json -show_format -show_streams C:\\Users\\yangk\\Desktop\\test.avi >C:\\Users\\公用\\tmp.txt");
+
+	//remove("C:\\Users\\Administrator\\Desktop\\tmp1.txt");//删除文件
+
+	//string strTxt = GetTxt("C:\\Users\\yangk\\Desktop\\test.txt");  //把txt文本读取到字符串
+	//if (strTxt != "")  //文件读取成功
+	//{
+	//	Json::Reader reader;
+	//	Json::Value root;
+	//	//if (reader.parse(strTxt, root))
+	//	{
+	//		//string format_name = root["format"]["format_name"].asString();  //文件类型 mp3
+	//		//string duration = root["format"]["duration"].asString();  //文件长度 186s
+	//		//string size = root["format"]["size"].asString();   //文件大小 2919028byte
+	//		//string bit_rate = root["format"]["bit_rate"].asString();   //文件比特率 128000
+	//	}
+	//}
+	
 }
