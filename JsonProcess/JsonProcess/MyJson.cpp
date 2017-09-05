@@ -72,8 +72,7 @@ int main()
 	HINSTANCE hd = ShellExecuteA(NULL, "open", "C:\\Users\\yangk\\Desktop\\IsBat12.bat", NULL, NULL, SW_SHOW);
 	long hdInt = (long)hd;
 	cout << hdInt << endl;
-	system("pause");
-	return 0;
+
 
 	//ShellExecuteA(NULL, "open", "c://WINDOWS//system32//cmd.exe", "/c md c://zzz", "", SW_SHOW);
 	//string command = " -v quiet -print_format json -show_format -show_streams C:\\Users\\yangk\\Desktop\\test.avi >E:\\tmp.txt";
@@ -81,20 +80,21 @@ int main()
 	//WinExec("ffprobe.exe -v quiet -print_format json -show_format -show_streams C:\\Users\\yangk\\Desktop\\test.avi >E:\\tmp.txt", SW_SHOW);
 	//system("ffprobe.exe -v quiet -print_format json -show_format -show_streams C:\\Users\\yangk\\Desktop\\test.avi >C:\\Users\\公用\\tmp.txt");
 
-	//remove("C:\\Users\\Administrator\\Desktop\\tmp1.txt");//删除文件
+	remove("C:\\Users\\Administrator\\Desktop\\tmp1.txt");//删除文件
 
-	//string strTxt = GetTxt("C:\\Users\\yangk\\Desktop\\test.txt");  //把txt文本读取到字符串
-	//if (strTxt != "")  //文件读取成功
-	//{
-	//	Json::Reader reader;
-	//	Json::Value root;
-	//	//if (reader.parse(strTxt, root))
-	//	{
-	//		//string format_name = root["format"]["format_name"].asString();  //文件类型 mp3
-	//		//string duration = root["format"]["duration"].asString();  //文件长度 186s
-	//		//string size = root["format"]["size"].asString();   //文件大小 2919028byte
-	//		//string bit_rate = root["format"]["bit_rate"].asString();   //文件比特率 128000
-	//	}
-	//}
-	
+	string strTxt = GetTxt("E:\\tmp.txt");  //把txt文本读取到字符串
+	if (strTxt != "")  //文件读取成功
+	{
+		Json::Reader reader;
+		Json::Value root;
+		if (reader.parse(strTxt, root))
+		{
+			string format_name = root["format"]["format_name"].asString();  //文件类型 mp3
+			string duration = root["format"]["duration"].asString();  //文件长度 186s
+			string size = root["format"]["size"].asString();   //文件大小 2919028byte
+			string bit_rate = root["format"]["bit_rate"].asString();   //文件比特率 128000
+		}
+	}
+	system("pause");
+	return 0;
 }
